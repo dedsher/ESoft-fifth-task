@@ -1,21 +1,10 @@
 :root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-
-  font-weight: 400;
-  line-height: 1.5;
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  text-align: center;
-  color: #213547;
-
-  background-color: #ffffff;
-
-  color-scheme: light dark;
-  -webkit-font-smoothing: antialiased;
-  font-synthesis: none;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
+  --color-accent: #60f2be;
+  --color-black: #161616;
+  --color-gray: #202020;
+  --color-portage: #a060f2;
+  --color-purple: #611dba;
+  --color-white: #ffffff;
 }
 
 a {
@@ -27,13 +16,27 @@ a:hover {
   color: #535bf2;
 }
 
+html {
+  height: 100%;
+}
+
 body {
-  display: flex;
-  min-width: 320px;
-  min-height: 100vh;
+  min-width: 100%;
+  min-height: 100%;
   margin: 0;
 
-  place-items: center;
+  font-weight: 400;
+  line-height: 1.5;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  text-align: center;
+  color: var(--color-white);
+
+  background-color: var(--color-black);
+
+  -webkit-font-smoothing: antialiased;
+  font-synthesis: none;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 h1 {
