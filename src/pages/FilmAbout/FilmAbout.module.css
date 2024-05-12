@@ -1,0 +1,35 @@
+.container {
+  position: relative;
+
+  padding-top: 20px;
+}
+
+.back_button {
+  position: absolute;
+  top: 50px;
+  left: 30px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+
+  background-color: transparent;
+  border: none;
+}
+
+.back_button:active,
+.back_button:focus,
+.back_button:hover {
+  border: none;
+  outline: none;
+  opacity: 0.4;
+}
+
+.film_page {
+  display: flex;
+  flex-direction: column;
+
+  gap: 20px;
+}

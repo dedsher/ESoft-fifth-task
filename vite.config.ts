@@ -12,6 +12,8 @@ export default defineConfig({
       "@state": path.resolve("./src/state"),
       "@pages": path.resolve("./src/pages"),
       "@hooks": path.resolve("./src/hooks"),
+      '@api': path.resolve('./src/api'),
+      '@muiTheme': path.resolve('./src/muiTheme'),
     },
   },
 });

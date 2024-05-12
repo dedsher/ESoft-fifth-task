@@ -1,10 +1,17 @@
 :root {
   --color-accent: #60f2be;
+  --color-alt-white: #b9b9b9;
   --color-black: #161616;
   --color-gray: #202020;
   --color-portage: #a060f2;
   --color-purple: #611dba;
   --color-white: #ffffff;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 a {
@@ -64,4 +71,175 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+
+
+.custom--dropdown-container {
+  position: relative;
+
+  width: -webkit-max-content;
+  width:    -moz-max-content;
+  width:         max-content;
+
+  text-align: left;
+
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.custom--dropdown-container .dropdown-input {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 7px 11px;
+
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+
+  gap: 7px;
+}
+
+.custom--dropdown-container .dropdown-input .dropdown-selected-value.placeholder {
+  color: #82868b;
+}
+
+.custom--dropdown-container .dropdown-tool svg {
+  -webkit-transition: all 0.2s ease-in-out;
+          transition: all 0.2s ease-in-out;
+}
+
+.custom--dropdown-container .dropdown-tool svg.translate {
+  -webkit-transform: rotate(180deg);
+      -ms-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
+.custom--dropdown-container .dropdown-menu {
+  position: absolute;
+  z-index: 99;
+
+  width: -webkit-max-content;
+  width:    -moz-max-content;
+  width:         max-content;
+  min-height: 50px;
+  max-height: 312px;
+  padding: 5px;
+  overflow: auto;
+
+  background-color: #ffffff;
+  border: 1px solid #dbdbdb;
+  border-radius: 6px;
+  -webkit-transform: translateY(6px);
+      -ms-transform: translateY(6px);
+          transform: translateY(6px);
+}
+
+.custom--dropdown-container .dropdown-menu::-webkit-scrollbar {
+  width: 5px;
+}
+
+.custom--dropdown-container .dropdown-menu::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.custom--dropdown-container .dropdown-menu::-webkit-scrollbar-thumb {
+  background: #888888;
+}
+
+.custom--dropdown-container .dropdown-menu::-webkit-scrollbar-thumb:hover {
+  background: #555555;
+}
+
+.custom--dropdown-container .dropdown-menu.alignment--left {
+  left: 0;
+}
+
+.custom--dropdown-container .dropdown-menu.alignment--right {
+  right: 0;
+}
+
+.custom--dropdown-container .dropdown-item {
+  padding: 7px 10px;
+
+  font-weight: 500;
+
+  border-radius: 6px;
+  cursor: pointer;
+
+  -webkit-transition: background-color 0.35s ease;
+          transition: background-color 0.35s ease;
+}
+
+.custom--dropdown-container .dropdown-item:hover {
+  color: #ff7300;
+
+  background-color: rgba(130, 134, 139, 0.05);
+}
+
+.custom--dropdown-container .dropdown-item.selected {
+  font-weight: 600;
+  color: #ff7300;
+
+  background-color: rgba(255, 115, 0, 0.075);
+}
+
+.custom--dropdown-container .search-box {
+  padding: 5px;
+}
+
+.custom--dropdown-container .search-box input {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 100%;
+  padding: 5px;
+
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+}
+
+.custom--dropdown-container .dropdown-tags {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+
+  gap: 5px;
+}
+
+.custom--dropdown-container .dropdown-tag-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 2px 4px;
+
+  font-weight: 500;
+  font-size: 12px;
+  color: #ffffff;
+
+  background-color: #ff7300;
+  border-radius: 6px;
+}
+
+.custom--dropdown-container .dropdown-tag-close {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-left: 5px;
 }

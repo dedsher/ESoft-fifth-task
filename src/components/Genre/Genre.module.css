@@ -1,0 +1,9 @@
+.genre {
+  padding: 5px 10px;
+
+  color: var(--color-white);
+
+  background-color: var(--color-black);
+  border-radius: 5px;
+  box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.1);
+}

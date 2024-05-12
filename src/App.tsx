@@ -2,10 +2,13 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "@state/store";
 import Search from "@pages/Search/Search";
-import Movies from "@pages/Movies/Movies";
-import MovieAbout from "@pages/MovieAbout/MovieAbout";
+import Films from "@pages/Films/Films";
+import FilmAbout from "@pages/FilmAbout/FilmAbout";
 import Home from "@pages/Home/Home";
 import ErrorPage from "@pages/ErrorPage/ErrorPage";
+import Index from "@pages/Index/Index";
+import { ThemeProvider } from "@emotion/react";
+import { theme } from "@muiTheme/theme";
 
 const router = createBrowserRouter([
   {
@@ -14,12 +17,16 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
+        index: true,
+        element: <Index />,
+      },
+      {
         path: "films",
-        element: <Movies />,
+        element: <Films />,
       },
       {
         path: "films/:filmId",
-        element: <MovieAbout />,
+        element: <FilmAbout />,
       },
       {
         path: "films/search",
@@ -32,7 +39,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <ThemeProvider theme={theme}>
+        <RouterProvider router={router} />
+      </ThemeProvider>
     </Provider>
   );
 }

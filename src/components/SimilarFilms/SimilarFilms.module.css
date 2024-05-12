@@ -1,0 +1,29 @@
+.to_open {
+  display: flex;
+  align-items: baseline;
+
+  gap: 20px;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+
+  color: var(--color-alt-white);
+
+  background-color: transparent;
+  border: none;
+
+  transition: opacity 0.3s;
+}
+
+.button:active,
+.button:focus,
+.button:hover {
+  border: none;
+  outline: none;
+  opacity: 0.4;
+}

@@ -21,6 +21,8 @@
       "@pages/*": ["pages/*"],
       "@state/*": ["state/*"],
       "@hooks/*": ["hooks/*"],
+      "@api/*": ["api/*"],
+      "@muiTheme/*": ["muiTheme/*"],
     },
 
     /* Linting */

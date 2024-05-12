@@ -1,9 +1,21 @@
 import { configureStore } from "@reduxjs/toolkit";
-import moviesReducer from "./movies/moviesSlice";
+import filmsReducer from "./films/filmsSlice";
+import filmReducer from "./film/filmSlice";
+import favFilmsReducer from "./favFilms/favFilmsSlice";
+import laterFilmsReducer from "./laterFilms/laterFilmsSlice";
+import similarFilmsReducer from "./similarFilms/similarFilmsSlice";
+import commentsReducer from "./comments/commentsSlice";
+import searchFilmsReducer from "./searchFilms/searchFilmsSlice";
 
 export const store = configureStore({
   reducer: {
-    movies: moviesReducer,
+    films: filmsReducer,
+    film: filmReducer,
+    favFilms: favFilmsReducer,
+    laterFilms: laterFilmsReducer,
+    similarFilms: similarFilmsReducer,
+    comments: commentsReducer,
+    searchFilms: searchFilmsReducer,
   },
 });
 
