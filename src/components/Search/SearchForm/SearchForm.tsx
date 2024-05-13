@@ -3,7 +3,6 @@ import styles from "./SearchForm.module.css";
 import { useAppDispatch, useAppSelector } from "@hooks/useReducerHooks";
 import {
   fetchSearchFilms,
-  setSelectedGenre,
 } from "@state/searchFilms/searchFilmsSlice";
 import { useEffect } from "react";
 
@@ -49,12 +48,13 @@ const SearchForm = () => {
     (state) => state.searchFilms.selectedGenre
   );
 
+  console.log(selectedGenre);
+
   useEffect(() => {
     if (selectedGenre) {
       dispatch(fetchSearchFilms({ name: "", genres: [selectedGenre] }));
-      dispatch(setSelectedGenre(""));
     }
-  }, [selectedGenre]);
+  }, []);
 
   return (
     <div>

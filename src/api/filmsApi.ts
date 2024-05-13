@@ -87,6 +87,7 @@ export const requestSearchFilms = async (
   genres: string[]
 ): Promise<unknown> => {
   const parsedName = name ? `&query=${encodeURI(name)}` : "";
+  const parsedGenres = genres.slice(1);
   const response = await fetch(
     `${API_URL}/search?page=1&limit=100${parsedName}`,
     OPTIONS
@@ -96,16 +97,20 @@ export const requestSearchFilms = async (
   if (data.message && data.message.includes("израсходовали")) {
     changeKey();
     OPTIONS.headers["X-API-KEY"] = API_KEY;
-    return requestSearchFilms(name, genres);
+    return requestSearchFilms(name, parsedGenres);
   }
 
+
   const filteredData = data.docs.filter((film: Film) => {
-    if (genres.length === 1) {
+    if (parsedGenres.length === 0) {
       return true;
     }
 
     const filmGenres = film.genres.map((genre) => genre.name);
-    return genres.every((genre) => filmGenres.includes(genre));
+    console.log(filmGenres);
+    console.log(parsedGenres);
+    // console.log(genres.every((genre) => filmGenres.includes(genre)))
+    return parsedGenres.every((genre) => filmGenres.includes(genre));
   });
 
   return filteredData;
