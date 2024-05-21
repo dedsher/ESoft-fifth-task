@@ -10,7 +10,7 @@ const API_KEYS = [
   "YVCNQ7J-ZDP4S2F-M597RD6-WGEW1DA",
   "XD516HJ-A11M0JR-HW8G4QC-QY3QDW9",
 ];
-let API_KEY = API_KEYS[0];
+let API_KEY = API_KEYS[1];
 
 const OPTIONS = {
   method: "GET",
@@ -30,7 +30,7 @@ export const changeKey = () => {
 // Запрос популярных фильмов
 export const requestFilms = async (): Promise<unknown> => {
   const response = await fetch(
-    `${API_URL}?page=1&limit=50&selectFields=id&selectFields=persons&selectFields=shortDescription&selectFields=type&selectFields=name&selectFields=rating&selectFields=poster&selectFields=description&selectFields=genres`,
+    `${API_URL}/search?page=1&limit=50&selectFields=id&selectFields=persons&selectFields=shortDescription&selectFields=type&selectFields=name&selectFields=rating&selectFields=poster&selectFields=description&selectFields=genres`,
     OPTIONS
   );
   const data = await response.json();
@@ -81,15 +81,35 @@ export const requestSimilarFilms = async (
   return data.docs as Film[];
 };
 
+// Фильтрация фильмов по жанрам
+const filterFilmsByGenres = (films: Film[], genres: string[]): Film[] => {
+  return films.filter((film) => {
+    
+    const filmGenres = film.genres.map((genre) => genre.name);
+    return genres.every((genre) => filmGenres.includes(genre));
+  });
+};
+
 // Запрос фильмов по жанрам и названию
 export const requestSearchFilms = async (
   name: Film["name"],
   genres: string[]
-): Promise<unknown> => {
-  const parsedName = name ? `&query=${encodeURI(name)}` : "";
-  const parsedGenres = genres.slice(1);
+): Promise<Film[]> => {
+  let url = `${API_URL}${name && '/search'}?page=1&limit=100`;
+
+  // Запросы отдельно по имени и отдельно по жанрам разные
+  if (name) {
+    url += `&query=${encodeURI(name)}`;
+  } else {
+    const parsedGenres = genres.reduce((acc, genre) => {
+      return acc + `&genres.name=${encodeURI(genre)}`;
+    }, "");
+
+    url += parsedGenres;
+  }
+
   const response = await fetch(
-    `${API_URL}/search?page=1&limit=100${parsedName}`,
+    url,
     OPTIONS
   );
   const data = await response.json();
@@ -97,21 +117,14 @@ export const requestSearchFilms = async (
   if (data.message && data.message.includes("израсходовали")) {
     changeKey();
     OPTIONS.headers["X-API-KEY"] = API_KEY;
-    return requestSearchFilms(name, parsedGenres);
+    return requestSearchFilms(name, genres);
   }
 
+  // Если есть и имя и жанры, то фильтруем запрос по имени по жанрам
+  if (name && genres.length) {
+    return filterFilmsByGenres(data.docs, genres);
+  }
 
-  const filteredData = data.docs.filter((film: Film) => {
-    if (parsedGenres.length === 0) {
-      return true;
-    }
-
-    const filmGenres = film.genres.map((genre) => genre.name);
-    console.log(filmGenres);
-    console.log(parsedGenres);
-    // console.log(genres.every((genre) => filmGenres.includes(genre)))
-    return parsedGenres.every((genre) => filmGenres.includes(genre));
-  });
-
-  return filteredData;
+  // Иначе просто возвращаем запрос по имени или жанрам
+  return data.docs as Film[];
 };

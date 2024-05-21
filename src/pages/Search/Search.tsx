@@ -1,26 +1,26 @@
-import { useAppSelector } from "@hooks/useReducerHooks";
-import { FilmsState } from "interfaces";
 import styles from "./Search.module.css";
 import SearchForm from "@components/Search/SearchForm/SearchForm";
-import FilmsList from "@components/FilmsList/FilmsList";
+import SearchFilms from "@components/Search/SearchFilms/SearchFilms";
+import { useEffect } from "react";
+import { clearFilms } from "@state/searchFilms/searchFilmsSlice";
+import { useAppDispatch } from "@hooks/useReducerHooks";
 
 const Search = () => {
-  const { films, status } = useAppSelector(
-    (state) => state.searchFilms as FilmsState
-  );
+
+  const dispatch = useAppDispatch();
+
+ useEffect(() => {
+    return () => {
+      dispatch(clearFilms());
+    }
+  }, [dispatch]);
 
   return (
     <div className={styles.container}>
       <h2>Поиск фильмов</h2>
       <div className={styles.wrapper}>
         <SearchForm />
-        <div>
-          {status === "loading" && <div>Загрузка...</div>}
-          {status === "failed" && <div>Ошибка загрузки</div>}
-          {status === "succeeded" && (
-            <FilmsList films={films} />
-          )}
-        </div>
+        <SearchFilms />
       </div>
     </div>
   );

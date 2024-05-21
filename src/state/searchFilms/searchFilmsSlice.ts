@@ -27,9 +27,10 @@ const searchFilmsSlice = createSlice({
   name: "searchFilms",
   initialState: initialState,
   reducers: {
-    setSelectedGenre: (state, action) => {
-      state.selectedGenre = action.payload;
-    },
+    clearFilms: (state) => {
+      state.films = [];
+      state.status = "idle";
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(fetchSearchFilms.pending, (state) => {
@@ -48,6 +49,6 @@ const searchFilmsSlice = createSlice({
 
 export { fetchSearchFilms };
 
-export const { setSelectedGenre } = searchFilmsSlice.actions;
+export const { clearFilms } = searchFilmsSlice.actions;
 
 export default searchFilmsSlice.reducer;
