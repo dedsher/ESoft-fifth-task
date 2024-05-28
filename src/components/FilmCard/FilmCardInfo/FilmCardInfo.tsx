@@ -1,8 +1,11 @@
 import { Film } from "interfaces";
 import styles from "./FilmCardInfo.module.css";
 import Genres from "@components/Genres/Genres";
+import { useMemo } from "react";
 
-const FilmShortInfo = ({ name, rating: { imdb }, genres, persons, shortDescription }: Pick<Film, 'name' | 'rating' | 'genres' | 'persons' | 'shortDescription'>) => {
+type FilmShortInfoProps = Pick<Film, 'name' | 'rating' | 'genres' | 'persons' | 'shortDescription'>;
+
+const FilmShortInfo = ({ name, rating: { imdb }, genres, persons, shortDescription }: FilmShortInfoProps) => {
   const getRatingColor = (imdb: number) => {
     if (imdb >= 7) {
       return "green";
@@ -13,11 +16,14 @@ const FilmShortInfo = ({ name, rating: { imdb }, genres, persons, shortDescripti
     }
   };
 
-  const parsedGenres = (genres.length > 0 ? genres.map((genre) => genre.name) : ["Жанр не указан"]);
-  let parsedPersons = (persons.length > 0 ? persons.map((person) => person.name).filter((person) => person) : ["Актеры не указаны"]);
-  if (parsedPersons.length > 3) {
-    parsedPersons = parsedPersons.slice(0, 3);
-  }
+  const parsedGenres = useMemo(() => {
+    return genres.length > 0 ? genres.map((genre) => genre.name) : ["Жанр не указан"];
+  }, [genres]);
+
+  const parsedPersons = useMemo(() => {
+    const names = persons.length > 0 ? persons.map((person) => person.name).filter((name) => name) : ["Актеры не указаны"];
+    return names.length > 3 ? names.slice(0, 3) : names;
+  }, [persons]);
 
   return (
     <div className={styles.info_list}>

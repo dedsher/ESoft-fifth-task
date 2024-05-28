@@ -6,6 +6,7 @@ import { Film, FilmsState, Filter, SelectOption } from "interfaces";
 import styles from "./Films.module.css";
 import FilmsSorting from "@components/FilmsSorting/FilmsSorting";
 import FilmsList from "@components/FilmsList/FilmsList";
+import Loader from "@components/Loader/Loader";
 
 const Films = () => {
   const dispatch = useAppDispatch();
@@ -62,23 +63,19 @@ const Films = () => {
   filmsToRender = filteredFilms(currentFilter, filmsToRender);
 
   return (
-    <div>
-      {status === "loading" && <div>Loading...</div>}
-      {status === "failed" && <div>Failed to load films</div>}
-      {status === "succeeded" && (
-        <>
-          <div className={styles.header}>
-            <h2>Фильмы</h2>
-            <FilmsSorting
-              onSortClick={handleSortClick}
-              currentFilter={currentFilter}
-              onFilterClick={handleFilterClick}
-            />
-          </div>
-          <FilmsList films={filmsToRender} />
-        </>
-      )}
-    </div>
+    <Loader status={status}>
+      <>
+        <div className={styles.header}>
+          <h2>Фильмы</h2>
+          <FilmsSorting
+            onSortClick={handleSortClick}
+            currentFilter={currentFilter}
+            onFilterClick={handleFilterClick}
+          />
+        </div>
+        <FilmsList films={filmsToRender} />
+      </>
+    </Loader>
   );
 };
 

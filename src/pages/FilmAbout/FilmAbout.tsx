@@ -10,6 +10,7 @@ import CommentsLayout from "@components/Comments/CommentsLayout/CommentsLayout";
 import FilmInfo from "@components/FilmInfo/FilmInfo";
 import SimilarFilms from "@components/SimilarFilms/SimilarFilms";
 import styles from "./FilmAbout.module.css";
+import Loader from "@components/Loader/Loader";
 
 const FilmAbout = () => {
   const { filmId } = useParams<{ filmId: string }>();
@@ -29,24 +30,20 @@ const FilmAbout = () => {
   }, [filmId]);
 
   return (
-    <div>
-      {status === "loading" && <div>Loading...</div>}
-      {status === "failed" && <div>Failed to load films</div>}
-      {status === "succeeded" && (
-        <div className={styles.container}>
-          <button className={styles.back_button} onClick={onBackClick}>
-            <ArrowBackIosNewIcon color="primary" />
-          </button>
-          <div className={styles.film_page}>
-            <FilmContext.Provider value={film}>
-              <FilmInfo />
-              <SimilarFilms />
-              <CommentsLayout />
-            </FilmContext.Provider>
-          </div>
+    <Loader status={status}>
+      <div className={styles.container}>
+        <button className={styles.back_button} onClick={onBackClick}>
+          <ArrowBackIosNewIcon color="primary" />
+        </button>
+        <div className={styles.film_page}>
+          <FilmContext.Provider value={film}>
+            <FilmInfo />
+            <SimilarFilms />
+            <CommentsLayout />
+          </FilmContext.Provider>
         </div>
-      )}
-    </div>
+      </div>
+    </Loader>
   );
 };
 

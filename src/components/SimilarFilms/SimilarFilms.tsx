@@ -5,6 +5,7 @@ import { useFilm } from "@hooks/useFilm";
 import { fetchSimilarFilms } from "@state/similarFilms/similarFilmsSlice";
 import FilmsList from "@components/FilmsList/FilmsList";
 import styles from "./SimilarFilms.module.css";
+import Loader from "@components/Loader/Loader";
 
 const SimilarFilms = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,11 +35,9 @@ const SimilarFilms = () => {
         </button>
       </div>
       {isOpen && (
-        <div>
-          {status === "loading" && <div>Loading...</div>}
-          {status === "failed" && <div>Failed to load films</div>}
-          {status === "succeeded" && <FilmsList films={Object.values(films)} />}
-        </div>
+        <Loader status={status}>
+          <FilmsList films={Object.values(films)} />
+        </Loader>
       )}
     </div>
   );

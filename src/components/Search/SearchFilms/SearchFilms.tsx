@@ -1,4 +1,5 @@
 import FilmsList from "@components/FilmsList/FilmsList";
+import Loader from "@components/Loader/Loader";
 import { useAppSelector } from "@hooks/useReducerHooks";
 import { FilmsState } from "interfaces";
 
@@ -8,11 +9,9 @@ const SearchFilms = () => {
   );
 
   return (
-    <div>
-      {status === "loading" && <div>Загрузка...</div>}
-      {status === "failed" && <div>Ошибка загрузки</div>}
-      {status === "succeeded" && <FilmsList films={films} />}
-    </div>
+    <Loader status={status}>
+      <FilmsList films={films} />
+    </Loader>
   );
 };
 

@@ -6,6 +6,11 @@ interface Person {
   name: string;
 }
 
+export interface FilmData {
+  message?: string;
+  docs: Film[];
+}
+
 export interface Film {
   id: number;
   name: string;

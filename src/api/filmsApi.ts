@@ -1,4 +1,4 @@
-import { Film } from "interfaces";
+import { Film, FilmData } from "interfaces";
 
 const API_URL = "https://api.kinopoisk.dev/v1.4/movie";
 
@@ -19,12 +19,10 @@ const OPTIONS = {
 
 // Функция для смены ключа:
 export const changeKey = () => {
-  console.log(`Предыдущий ключ: ${API_KEY}`);
   API_KEY =
     API_KEYS[
       (API_KEYS.findIndex((key) => key === API_KEY) + 1) % API_KEYS.length
     ];
-  console.log(`Новый ключ: ${API_KEY}`);
 };
 
 // Запрос популярных фильмов
@@ -32,8 +30,12 @@ export const requestFilms = async (): Promise<unknown> => {
   const response = await fetch(
     `${API_URL}/search?page=1&limit=50&selectFields=id&selectFields=persons&selectFields=shortDescription&selectFields=type&selectFields=name&selectFields=rating&selectFields=poster&selectFields=description&selectFields=genres`,
     OPTIONS
-  );
-  const data = await response.json();
+  )
+    .then((res) => res.json())
+    .catch((err) => {
+      throw new Error(err);
+    });
+  const data: FilmData = await response;
 
   if (data.message && data.message.includes("израсходовали")) {
     changeKey();
@@ -46,8 +48,12 @@ export const requestFilms = async (): Promise<unknown> => {
 
 // Запрос фильма по id
 export const requestFilm = async (filmId: number): Promise<unknown> => {
-  const response = await fetch(`${API_URL}/${filmId}`, OPTIONS);
-  const data = await response.json();
+  const response = await fetch(`${API_URL}/${filmId}`, OPTIONS)
+    .then((res) => res.json())
+    .catch((err) => {
+      throw new Error(err);
+    });
+  const data: FilmData = await response;
 
   if (data.message && data.message.includes("израсходовали")) {
     changeKey();
@@ -55,7 +61,7 @@ export const requestFilm = async (filmId: number): Promise<unknown> => {
     return requestFilm(filmId);
   }
 
-  return data as Film;
+  return data;
 };
 
 // Запрос похожих фильмов
@@ -69,8 +75,12 @@ export const requestSimilarFilms = async (
   const response = await fetch(
     `${API_URL}?page=1&limit=5&id=%21${currentId}${genresString}&selectFields=id&selectFields=persons&selectFields=shortDescription&selectFields=type&selectFields=name&selectFields=rating&selectFields=poster&selectFields=description&selectFields=genres`,
     OPTIONS
-  );
-  const data = await response.json();
+  )
+    .then((res) => res.json())
+    .catch((err) => {
+      throw new Error(err);
+    });
+  const data: FilmData = await response;
 
   if (data.message && data.message.includes("израсходовали")) {
     changeKey();
@@ -84,7 +94,6 @@ export const requestSimilarFilms = async (
 // Фильтрация фильмов по жанрам
 const filterFilmsByGenres = (films: Film[], genres: string[]): Film[] => {
   return films.filter((film) => {
-    
     const filmGenres = film.genres.map((genre) => genre.name);
     return genres.every((genre) => filmGenres.includes(genre));
   });
@@ -95,7 +104,7 @@ export const requestSearchFilms = async (
   name: Film["name"],
   genres: string[]
 ): Promise<Film[]> => {
-  let url = `${API_URL}${name && '/search'}?page=1&limit=100`;
+  let url = `${API_URL}${name && "/search"}?page=1&limit=100`;
 
   // Запросы отдельно по имени и отдельно по жанрам разные
   if (name) {
@@ -108,11 +117,12 @@ export const requestSearchFilms = async (
     url += parsedGenres;
   }
 
-  const response = await fetch(
-    url,
-    OPTIONS
-  );
-  const data = await response.json();
+  const response = await fetch(url, OPTIONS)
+    .then((res) => res.json())
+    .catch((err) => {
+      throw new Error(err);
+    });
+  const data: FilmData = await response;
 
   if (data.message && data.message.includes("израсходовали")) {
     changeKey();

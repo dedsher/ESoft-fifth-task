@@ -15,7 +15,6 @@ const fetchFilm = createAsyncThunk(
       const film = await requestFilm(filmId);
       return film;
     } catch (error) {
-      console.log(error)
       throw Error("Failed to fetch film");
     }
   }

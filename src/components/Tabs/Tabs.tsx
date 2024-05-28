@@ -9,11 +9,7 @@ const Tabs = ({ filters, currentFilter, onFilterClick }: { filters: Filter[], cu
           <li
             key={index}
             onClick={() => onFilterClick(item.value)}
-            className={
-              styles.tab +
-              " " +
-              (item.value === currentFilter ? styles.tab_active : "")
-            }
+            className={`${styles.tab} ${item.value === currentFilter ? styles.tab_active : ""}`}
           >
             {item.label}
           </li>
