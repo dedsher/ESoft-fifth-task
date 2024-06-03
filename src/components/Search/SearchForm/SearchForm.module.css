@@ -1,0 +1,45 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 20px;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 4px;
+}
+
+.search_input {
+  width: 100%;
+  padding: 6px;
+
+  font-size: 16px;
+
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+}
+
+.checkboxes {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0;
+
+  border: none;
+
+  gap: 8px;
+}
+
+.checkbox_name {
+  text-transform: capitalize;
+}
+
+.search_button {
+  width: 100%;
+}

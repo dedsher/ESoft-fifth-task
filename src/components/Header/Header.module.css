@@ -1,0 +1,33 @@
+.header_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.header_title {
+  margin: 0;
+
+  font-size: 30px;
+}
+
+.header_nav {
+  display: flex;
+  margin: 0;
+  padding: 0;
+
+  list-style-type: none;
+
+  gap: 20px;
+}
+
+.header_item {
+  height: 100%;
+  padding: 6px;
+
+  cursor: pointer;
+}
+
+.header_item a {
+  color: var(--color-white);
+}

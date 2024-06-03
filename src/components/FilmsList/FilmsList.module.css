@@ -1,0 +1,16 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+
+  list-style-type: none;
+
+  gap: 20px;
+}
+
+
+.card {
+  height: 300px;
+  margin: 0;
+  padding: 0;
+}

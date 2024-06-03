@@ -18,8 +18,11 @@
     "paths": {
       "@assets/*": ["assets/*"],
       "@components/*": ["components/*"],
-      "@utils/*": ["utils/*"],
-      "@data/*": ["data/*"]
+      "@pages/*": ["pages/*"],
+      "@state/*": ["state/*"],
+      "@hooks/*": ["hooks/*"],
+      "@api/*": ["api/*"],
+      "@muiTheme/*": ["muiTheme/*"],
     },
 
     /* Linting */
